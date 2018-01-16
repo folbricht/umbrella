@@ -23,6 +23,11 @@ related - Find domains related to a domain
 security - Show available security information for a domain
 domain-history - Query the history of a domain+type
 ip-history - Query the history of an ip+type
+as - Query the Autonomous System information for an IP
+prefixes - Query CIDR and Geo information for an ASN
+whois-email - Query the domains registered for a single email
+whois-emails - Query the domains registered for multiple emails
+latest-malicious - Query the (malicious) domains associated with an IP
 `
 
 func main() {
@@ -57,6 +62,11 @@ func main() {
 		"security":               security,
 		"domain-history":         domainHistory,
 		"ip-history":             ipHistory,
+		"as":                     as,
+		"prefixes":               prefixes,
+		"whois-email":            whoisEmail,
+		"whois-emails":           whoisEmails,
+		"latest-malicious":       latestMalicious,
 	}
 	h, ok := handlers[cmd]
 	if !ok {

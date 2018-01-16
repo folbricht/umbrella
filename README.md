@@ -73,5 +73,14 @@ investigate -key <KEY> domain-history A ihaveabadreputation.com
 - `security` - Show available security information for a domain
 - `domain-history` - Query the history of a domain+type
 - `ip-history` - Query the history of a ip+type
+- `as` - Query the Autonomous System information for an IP
+- `prefixes` - Query CIDR and Geo information for an ASN
+- `whois-email` - Query the domains registered for a single email
+- `whois-emails` - Query the domains registered for multiple emails
+- `latest-malicious` - Query the (malicious) domains associated with an IP
 
 See `investigate <command> -h` for details on any command and available options.
+
+### Links
+
+- GoDoc documentation for the library - https://godoc.org/github.com/folbricht/umbrella

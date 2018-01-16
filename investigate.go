@@ -67,7 +67,5 @@ func (c Investigate) do(req *http.Request, out interface{}) error {
 	if resp.StatusCode != 200 {
 		return NewUnexpectedResponse(resp.StatusCode, resp.Body)
 	}
-	// b, _ := httputil.DumpResponse(resp, true)
-	// os.Stdout.Write(b)
 	return json.NewDecoder(resp.Body).Decode(out)
 }
