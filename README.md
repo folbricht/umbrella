@@ -1,7 +1,7 @@
 Umbrella API client
 ===================
 
-Umbrella is a client library as well as a command-line tool for the [APIs](https://docs.umbrella.com/developer) provided by Cisco Umbrella, formerly OpenDNS. It is still incomplete with only parts of the [Investigate API](https://docs.umbrella.com/developer/investigate-api/) being implemented at this point. Contributions are welcome.
+Umbrella is a client library as well as a command-line tool for the [APIs](https://docs.umbrella.com/developer) provided by Cisco Umbrella, formerly OpenDNS. It supports all endpoints available in the [Investigate API](https://docs.umbrella.com/developer/investigate-api/) at this point. The [Enforcement API](https://docs.umbrella.com/developer/enforcement-api/) will be implemented at a later time. Contributions are welcome.
 
 ### Library
 
@@ -40,7 +40,7 @@ for domain, categorization := range categorizations {
 
 ### Tool
 
-The command-line tool mainly exists for testing purposes and to show how the library can be used. It can be installed with:
+The command-line tool mainly exists for testing purposes and to show how the library can be used. There is one sub-command for each API endpoint and it can be installed with:
 
 ```
 go get -u "github.com/folbricht/umbrella"
@@ -78,6 +78,12 @@ investigate -key <KEY> domain-history A ihaveabadreputation.com
 - `whois-email` - Query the domains registered for a single email
 - `whois-emails` - Query the domains registered for multiple emails
 - `latest-malicious` - Query the (malicious) domains associated with an IP
+- `top-million` - Show the top most popular domains (up to 1 million)
+- `samples` - List samples associated with an IP, domain, or URL
+- `sample` - Show information about a single sample by file hash
+- `sample-artifacts` - Show information about artifacts associated with a sample
+- `sample-connections` - Show information about connections associated with a sample
+- `sample-behaviors` - List indicators associated with a sample
 
 See `investigate <command> -h` for details on any command and available options.
 

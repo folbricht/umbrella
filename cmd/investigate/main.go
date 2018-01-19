@@ -28,6 +28,12 @@ prefixes - Query CIDR and Geo information for an ASN
 whois-email - Query the domains registered for a single email
 whois-emails - Query the domains registered for multiple emails
 latest-malicious - Query the (malicious) domains associated with an IP
+top-million - Show the top most popular domains (up to 1 million)
+samples - List samples associated with an IP, domain, or URL
+sample - Show information about a single sample by file hash
+sample-artifacts - Show information about artifacts associated with a sample
+sample-connections - Show information about connections associated with a sample
+sample-behaviors - List indicators associated with a sample
 `
 
 func main() {
@@ -67,6 +73,12 @@ func main() {
 		"whois-email":            whoisEmail,
 		"whois-emails":           whoisEmails,
 		"latest-malicious":       latestMalicious,
+		"top-million":            topMillion,
+		"samples":                samples,
+		"sample":                 sample,
+		"sample-artifacts":       sampleArtifacts,
+		"sample-connections":     sampleConnections,
+		"sample-behaviors":       sampleBehaviors,
 	}
 	h, ok := handlers[cmd]
 	if !ok {
