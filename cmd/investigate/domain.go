@@ -140,7 +140,7 @@ func domainVolume(key string, args []string) error {
 	client := umbrella.NewInvestigate(key)
 	opts := umbrella.QueryOptions{
 		"start": {start},
-		"stop":  {start},
+		"stop":  {stop},
 		"match": {match},
 	}
 	volume, err := client.DomainVolume(domain, opts)

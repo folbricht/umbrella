@@ -3,7 +3,6 @@ package umbrella
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -18,19 +17,13 @@ type Investigate struct {
 	Client   HTTPClient // Defaults to http.DefaultClient if nil
 }
 
-// DefaultURL is the Umbrella service's default API URL
-const DefaultURL = "https://investigate.api.umbrella.com"
-
-// HTTPClient is an interface that allows the use of different clients to
-// execute HTTP requests, for example to add logging or for testing.
-type HTTPClient interface {
-	Do(req *http.Request) (*http.Response, error)
-}
+// DefaultInvestigateURL is the Umbrella service's default API URL
+const DefaultInvestigateURL = "https://investigate.api.umbrella.com"
 
 // NewInvestigate returns a new client for the Investigate API using the
 // default URL.
 func NewInvestigate(token string) Investigate {
-	u, _ := url.Parse(DefaultURL)
+	u, _ := url.Parse(DefaultInvestigateURL)
 	return Investigate{
 		APIToken: token,
 		BaseURL:  u,
@@ -45,7 +38,7 @@ func (c Investigate) Get(url string, out interface{}) error {
 		return err
 	}
 	req.Header.Set("Authorization", "Bearer "+c.APIToken)
-	return c.do(req, out)
+	return do(c.Client, req, out)
 }
 
 // Post is a convenience function that adds authentication to a request, POSTs
@@ -61,22 +54,6 @@ func (c Investigate) Post(url string, in, out interface{}) error {
 		return err
 	}
 	req.Header.Set("Authorization", "Bearer "+c.APIToken)
-	return c.do(req, out)
-}
-
-func (c Investigate) do(req *http.Request, out interface{}) error {
-	var client HTTPClient = http.DefaultClient
-	if c.Client != nil {
-		client = c.Client
-	}
-	resp, err := client.Do(req)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	defer ioutil.ReadAll(resp.Body)
-	if resp.StatusCode != 200 {
-		return NewUnexpectedResponse(resp.StatusCode, resp.Body)
-	}
-	return json.NewDecoder(resp.Body).Decode(out)
+	req.Header.Set("Content-Type", "application/json")
+	return do(c.Client, req, out)
 }

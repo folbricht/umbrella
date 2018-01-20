@@ -1,7 +1,7 @@
 Umbrella API client
 ===================
 
-Umbrella is a client library as well as a command-line tool for the [APIs](https://docs.umbrella.com/developer) provided by Cisco Umbrella, formerly OpenDNS. It supports all endpoints available in the [Investigate API](https://docs.umbrella.com/developer/investigate-api/) at this point. The [Enforcement API](https://docs.umbrella.com/developer/enforcement-api/) will be implemented at a later time. Contributions are welcome.
+Umbrella is a client library as well as a command-line tool for the [APIs](https://docs.umbrella.com/developer) provided by Cisco Umbrella, formerly OpenDNS. It supports all endpoints available in the [Investigate API](https://docs.umbrella.com/developer/investigate-api/) and the [Enforcement API](https://docs.umbrella.com/developer/enforcement-api/). Contributions are welcome.
 
 ### Library
 
@@ -38,15 +38,16 @@ for domain, categorization := range categorizations {
 }
 ```
 
-### Tool
+### Tools
 
-The command-line tool mainly exists for testing purposes and to show how the library can be used. There is one sub-command for each API endpoint and it can be installed with:
+The command-line tools mainly exists for testing purposes and to show how the library can be used. There is one sub-command for each API endpoint and the two tools currently available can be installed with:
 
 ```
 go get -u "github.com/folbricht/umbrella/cmd/investigate"
+go get -u "github.com/folbricht/umbrella/cmd/enforcement"
 ```
 
-Accessing the Umbrella API requires an API token which can be passed into the tool either by environment variable `UMBRELLA_KEY` or by command-line option `-key`. The tool supports multiple sub-commands, each of which represents a specific API call. Examples of how to use the tool:
+Accessing the Umbrella Investigate API requires an API token which can be passed into the tool either by environment variable `UMBRELLA_KEY` or by command-line option `-key`. For the Enforcement API, a customer key is required which can be provided by environment variable `CUSTOMER_KEY` or the `-key` option. The tools support multiple sub-commands, each of which represents a specific API call. Examples of how to use the tools:
 
 ```
 UMBRELLA_KEY=... investigate domain-timeline ihaveabadreputation.com
@@ -60,7 +61,11 @@ investigate -key <KEY> domain-categorization -showlabels ihaveabadreputation.com
 investigate -key <KEY> domain-history A ihaveabadreputation.com
 ```
 
-#### Subcommands
+```
+enforcement -key <KEY> list-all-domains
+```
+
+#### `investigate` Subcommands
 
 - `domain-categories` - List category IDs and Labels
 - `domain-categorization` - Categorization for a single domain
@@ -86,6 +91,14 @@ investigate -key <KEY> domain-history A ihaveabadreputation.com
 - `sample-behaviors` - List indicators associated with a sample
 
 See `investigate <command> -h` for details on any command and available options.
+
+#### `enforcement` Subcommands
+
+- `list-domains` - List domains currently on the blocklist (includes pagination)
+- `list-all-domains` - List all domains currently on the blocklist
+- `delete-domain` - Remove a domain from the blocklist
+
+See `enforcement <command> -h` for details on any command and available options.
 
 ### Links
 
