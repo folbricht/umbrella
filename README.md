@@ -43,7 +43,7 @@ for domain, categorization := range categorizations {
 The command-line tool mainly exists for testing purposes and to show how the library can be used. There is one sub-command for each API endpoint and it can be installed with:
 
 ```
-go get -u "github.com/folbricht/umbrella"
+go get -u "github.com/folbricht/umbrella/cmd/investigate"
 ```
 
 Accessing the Umbrella API requires an API token which can be passed into the tool either by environment variable `UMBRELLA_KEY` or by command-line option `-key`. The tool supports multiple sub-commands, each of which represents a specific API call. Examples of how to use the tool:
