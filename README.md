@@ -1,21 +1,25 @@
-Umbrella API client
-===================
+# Umbrella API client
+
+[![GoDoc](https://godoc.org/github.com/folbricht/umbrella?status.svg)](https://godoc.org/github.com/folbricht/umbrella)
 
 Umbrella is a client library as well as a command-line tool for the [APIs](https://docs.umbrella.com/developer) provided by Cisco Umbrella, formerly OpenDNS. It supports all endpoints available in the [Investigate API](https://docs.umbrella.com/developer/investigate-api/) and the [Enforcement API](https://docs.umbrella.com/developer/enforcement-api/). Contributions are welcome.
 
 ### Library
 
 Import the library.
+
 ```go
 import "github.com/folbricht/umbrella"
 ```
 
 Create a client for the Investigate API. Requires an API access token.
+
 ```go
 client := umbrella.NewInvestigate(key)
 ```
 
 Query available categories.
+
 ```go
 categories, err := client.DomainCategories()
 if err != nil {
@@ -27,6 +31,7 @@ for key, value := range categories {
 ```
 
 Query categorization of multiple domains.
+
 ```go
 domains := []string{"umbrella.com", "ihaveabadreputation.com"}
 categorizations, err := client.DomainCategorizations(domains...)
@@ -42,26 +47,26 @@ for domain, categorization := range categorizations {
 
 The command-line tools mainly exists for testing purposes and to show how the library can be used. There is one sub-command for each API endpoint and the two tools currently available can be installed with:
 
-```
+```shell
 go get -u "github.com/folbricht/umbrella/cmd/investigate"
 go get -u "github.com/folbricht/umbrella/cmd/enforcement"
 ```
 
 Accessing the Umbrella Investigate API requires an API token which can be passed into the tool either by environment variable `UMBRELLA_KEY` or by command-line option `-key`. For the Enforcement API, a customer key is required which can be provided by environment variable `CUSTOMER_KEY` or the `-key` option. The tools support multiple sub-commands, each of which represents a specific API call. Examples of how to use the tools:
 
-```
+```shell
 UMBRELLA_KEY=... investigate domain-timeline ihaveabadreputation.com
 ```
 
-```
+```shell
 investigate -key <KEY> domain-categorization -showlabels ihaveabadreputation.com
 ```
 
-```
+```shell
 investigate -key <KEY> domain-history A ihaveabadreputation.com
 ```
 
-```
+```shell
 enforcement -key <KEY> list-all-domains
 ```
 
@@ -99,7 +104,3 @@ See `investigate <command> -h` for details on any command and available options.
 - `delete-domain` - Remove a domain from the blocklist
 
 See `enforcement <command> -h` for details on any command and available options.
-
-### Links
-
-- GoDoc documentation for the library - https://godoc.org/github.com/folbricht/umbrella
